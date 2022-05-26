@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const { PORT } = require('./config');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Hello');
 });
+
+app.use('/', userRoutes);
 
 app.all('*', (req, res) => {
   res.status(400).json({ error: 'page not found' });
