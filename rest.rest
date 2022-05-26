@@ -20,3 +20,12 @@ Content-Type: application/json
 "email": "tomas1@gmail.com",
 "password": "master"
 }
+
+###
+POST http://localhost:3000/accounts
+Content-Type: application/json
+
+{
+"user_id": 2,
+"group_id": 2
+}
