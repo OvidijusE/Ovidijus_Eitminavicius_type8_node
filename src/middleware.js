@@ -13,12 +13,12 @@ async function validateUser(req, res, next) {
     next();
   } catch (error) {
     console.log('error in validateAsync ===', error);
-    // const formatedError = error.details.map((eObj) => ({
-    //   message: eObj.message,
-    //   field: eObj.path[0],
-    // }));
-    // res.status(400).json(formatedError);
-    res.status(400).json(error.details);
+    const formatedError = error.details.map((eObj) => ({
+      message: eObj.message,
+      field: eObj.path[0],
+    }));
+    res.status(400).json(formatedError);
+    // res.status(400).json(error.details);
   }
 }
 

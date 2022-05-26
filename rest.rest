@@ -6,8 +6,8 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-"fullName": "Tomas",
-"email": "tomas1@gmail.com",
+"fullName": "Juozas",
+"email": "juozas1@gmail.com",
 "password": "master"
 }
 
@@ -16,8 +16,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-"fullName": "Tomas",
-"email": "tomas1@gmail.com",
+"fullName": "Juozas",
+"email": "juozas1@gmail.com",
 "password": "master"
 }
 
@@ -26,6 +26,6 @@ POST http://localhost:3000/accounts
 Content-Type: application/json
 
 {
-"user_id": 2,
-"group_id": 2
+"user_id": 3,
+"group_id": 3
 }
