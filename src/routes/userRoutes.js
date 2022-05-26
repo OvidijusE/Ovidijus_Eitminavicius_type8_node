@@ -8,70 +8,40 @@ const { hashPassword, passWordsMatch, generateJwtToken } = require('../utils/hel
 
 const userRoutes = express.Router();
 
-// userRoutes.post('/register', validateUser, async (req, res) => {
-//   try {
-//     const { fullName, receivedEmail, password } = req.body;
-//     // const receivedEmail = req.body.email;
-//     // const { password } = req.body;
-//     const plainTextPasword = password;
-
-//     const hashedPassword = bcrypt.hashSync(plainTextPasword, 10);
-//     console.log('hashedPassword ===', hashedPassword);
-
-//     const foundUser = await findUserByEmail(receivedEmail);
-//     console.log('foundUser ===', foundUser);
-//     if (foundUser) {
-//       res.status(400).json(`User with ${receivedEmail} email already exists`);
-//       return;
-//     }
-//     const newUser = {
-//       fullName,
-//       email: receivedEmail,
-//       password: hashPassword,
-//     };
-
-//     const insertedResult = await saveUser(newUser.fullName, newUser.email, newUser.password);
-//     console.log('insertedResult ===', insertedResult);
-
-//     if (insertedResult === false) {
-//       res.status(500).json('Something went wrong');
-//       return;
-//     }
-//     res.status(201).json('User already exists');
-//   } catch (error) {
-//     console.log('error in register user ===', error);
-//     res.status(500).json('Cannot create user');
-//   }
-// });
-
 userRoutes.post('/register', validateUser, async (req, res) => {
-  // res.send('Register route is working');
-  const { fullName, email, password } = req.body;
+  try {
+    const { fullName, email, password } = req.body;
 
-  const plainTextPassword = password;
-  const hashedPassword = bcrypt.hashSync(plainTextPassword, 10);
-  console.log('hashedPassword===', hashedPassword);
+    const plainTextPassword = password;
+    const hashedPassword = bcrypt.hashSync(plainTextPassword, 10);
+    console.log('hashedPassword===', hashedPassword);
 
-  const newUser = {
-    fullName,
-    email,
-    password: hashedPassword,
-  };
-  const insertResult = await saveUser(newUser.fullName, newUser.email, newUser.password);
-  console.log('insertResult===', insertResult);
+    const newUser = {
+      fullName,
+      email,
+      password: hashedPassword,
+    };
+    const insertResult = await saveUser(newUser.fullName, newUser.email, newUser.password);
+    console.log('insertResult===', insertResult);
 
-  if (insertResult === false) {
-    res.status(500).json('something wrong');
-    return;
+    if (insertResult === false) {
+      res.status(500).json('something wrong');
+      return;
+    }
+    res.status(201).json('user created');
+  } catch (error) {
+    console.log('error in register user ===', error);
+    res.status(500).json('Cannot create user');
   }
-  res.status(201).json('user created');
 });
 
 userRoutes.post('/login', validateUser, async (req, res) => {
   const receivedEmail = req.body.email;
   const receivedPassword = req.body.password;
 
-  const foundUser = await findUserByEmail(receivedEmail);
+  const foundUserArr = await findUserByEmail(receivedEmail);
+
+  const foundUser = foundUserArr[0];
   console.log('foundUser ===', foundUser);
 
   //   if email doesn't exits

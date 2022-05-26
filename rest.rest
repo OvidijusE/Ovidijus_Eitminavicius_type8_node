@@ -6,7 +6,17 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-"fullName": "Jonas",
-"email": "Jonas@yandex.ru",
+"fullName": "Tomas",
+"email": "tomas1@gmail.com",
+"password": "master"
+}
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+"fullName": "Tomas",
+"email": "tomas1@gmail.com",
 "password": "master"
 }
