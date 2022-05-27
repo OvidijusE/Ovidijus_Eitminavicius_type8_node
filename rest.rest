@@ -6,8 +6,8 @@ POST http://localhost:3000/api/register
 Content-Type: application/json
 
 {
-"fullName": "Juozas",
-"email": "juozas1@gmail.com",
+"fullName": "Vardenis Pavardenis",
+"email": "vartotojas1@gmail.com",
 "password": "master"
 }
 
@@ -16,8 +16,8 @@ POST http://localhost:3000/api/login
 Content-Type: application/json
 
 {
-"fullName": "Juozas",
-"email": "juozas1@gmail.com",
+"fullName": "Vardenis Pavardenis",
+"email": "vartotojas1@gmail.com",
 "password": "master"
 }
 
