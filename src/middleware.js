@@ -18,13 +18,11 @@ async function validateUser(req, res, next) {
       field: eObj.path[0],
     }));
     res.status(400).json(formatedError);
-    // res.status(400).json(error.details);
   }
 }
 
 async function validateToken(req, res, next) {
   const tokenFromHeaders = req.headers.authorization?.split(' ')[1];
-  console.log('tokenFromHeaders ===', tokenFromHeaders);
   if (!tokenFromHeaders) {
     res.status(401).json({
       success: false,

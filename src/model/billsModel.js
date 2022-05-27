@@ -14,3 +14,18 @@ async function executeDb(sql, dataToDbArr) {
     conn?.end();
   }
 }
+
+function getBillbyGroupId(group_id) {
+  const sql = 'SELECT * FROM bills WHERE group_id=?';
+  return executeDb(sql, [group_id]);
+}
+
+function addBill(group_id, amount, description) {
+  const sql = 'INSERT INTO bills (group_id, amount, description) VALUES (?, ?, ?)';
+  return executeDb(sql, [group_id, amount, description]);
+}
+
+module.exports = {
+  getBillbyGroupId,
+  addBill,
+};

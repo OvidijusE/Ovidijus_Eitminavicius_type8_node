@@ -24,7 +24,7 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/api/accounts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTY1MzYzMTQzMywiZXhwIjoxNjUzNjM1MDMzfQ.NqCihp6uMRETDJ7yvJpIoP42jRqLFFAixaMOOqAbyac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE2NTM2NDAxODEsImV4cCI6MTY1MzY0Mzc4MX0.gygTYtNHx2mQiPTdh17Fs2KukEASulftmrxTX2CYWaU
 
 {
 "group_id": 1
@@ -32,4 +32,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhd
 
 ###
 GET http://localhost:3000/api/accounts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTY1MzYzMTQzMywiZXhwIjoxNjUzNjM1MDMzfQ.NqCihp6uMRETDJ7yvJpIoP42jRqLFFAixaMOOqAbyac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE2NTM2NDAxODEsImV4cCI6MTY1MzY0Mzc4MX0.gygTYtNHx2mQiPTdh17Fs2KukEASulftmrxTX2CYWaU
+
+###
+GET http://localhost:3000/api/bills/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE2NTM2NDAxODEsImV4cCI6MTY1MzY0Mzc4MX0.gygTYtNHx2mQiPTdh17Fs2KukEASulftmrxTX2CYWaU
+
+###
+POST http://localhost:3000/api/bills?group_id=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE2NTM2NDAxODEsImV4cCI6MTY1MzY0Mzc4MX0.gygTYtNHx2mQiPTdh17Fs2KukEASulftmrxTX2CYWaU
+
+{
+"group_id": 1,
+"amount": 150,
+"description": "Trip to spain"
+}
