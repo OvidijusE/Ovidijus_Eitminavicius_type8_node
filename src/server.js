@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
-app.use('/', userRoutes);
-app.use('/', accountRoutes);
+app.use('/api', userRoutes);
+app.use('/api', accountRoutes);
 
 app.all('*', (req, res) => {
   res.status(400).json({ error: 'page not found' });
