@@ -4,7 +4,7 @@ const { jwtSecret } = require('./config');
 
 async function validateUser(req, res, next) {
   const schema = Joi.object({
-    fullName: Joi.string().trim().min(4).max(30).required(),
+    full_name: Joi.string().trim().min(4).max(30).required(),
     email: Joi.string().trim().email().lowercase().required(),
     password: Joi.string().trim().min(5).max(20).required(),
   });

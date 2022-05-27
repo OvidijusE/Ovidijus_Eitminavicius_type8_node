@@ -15,9 +15,9 @@ async function executeDb(sql, dataToDbArr) {
   }
 }
 
-function saveUser(fullName, email, password) {
-  const sql = 'INSERT INTO users (fullName, email, password) VALUES (?, ?, ?)';
-  return executeDb(sql, [fullName, email, password]);
+function saveUser(full_name, email, password) {
+  const sql = 'INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)';
+  return executeDb(sql, [full_name, email, password]);
 }
 
 function findUserByEmail(email) {

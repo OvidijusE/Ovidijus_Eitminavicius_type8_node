@@ -4,17 +4,17 @@ const { passWordsMatch, generateJwtToken } = require('../utils/helper');
 
 async function registerUser(req, res) {
   try {
-    const { fullName, email, password } = req.body;
+    const { full_name, email, password } = req.body;
 
     const plainTextPassword = password;
     const hashedPassword = bcryptjs.hashSync(plainTextPassword, 10);
 
     const newUser = {
-      fullName,
+      full_name,
       email,
       password: hashedPassword,
     };
-    const insertResult = await saveUser(newUser.fullName, newUser.email, newUser.password);
+    const insertResult = await saveUser(newUser.full_name, newUser.email, newUser.password);
 
     if (insertResult === false) {
       res.status(500).json('something wrong');

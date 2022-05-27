@@ -1,4 +1,4 @@
-import { BASE_URL } from './moduleConfig.js';
+import { BASE_URL } from '../modules/moduleConfig.js';
 
 export async function fetch(endpoint, token) {
   try {
