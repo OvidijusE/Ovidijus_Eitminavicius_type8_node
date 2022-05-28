@@ -36,7 +36,9 @@ formEl.addEventListener('submit', async (e) => {
     const { token } = dataInJs;
     localStorage.setItem('articleUserToken', token);
     // window.location.href = 'groups.html';
+    clearErrors();
   } else {
+    errorMsgEl.textContent = '';
     console.log('login fail');
     handleError(dataInJs);
   }
