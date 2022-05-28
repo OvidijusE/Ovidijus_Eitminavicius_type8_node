@@ -74,6 +74,19 @@ padding: 0.1rem;
   align-items: center;
 }
 
+.group-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.card-group{
+  border: 0.01rem solid grey;
+  border-radius: 0.3rem;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  text-align: center;
+}
+
 .form {
     display: flex;
     flex-direction: column;

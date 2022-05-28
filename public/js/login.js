@@ -33,9 +33,11 @@ formEl.addEventListener('submit', async (e) => {
   if (dataInJs.success === true) {
     errorMsgEl.textContent = '';
     successMsg('Okey!');
+    formEl.elements.email.value = '';
+    formEl.elements.password.value = '';
     const { token } = dataInJs;
-    localStorage.setItem('articleUserToken', token);
-    // window.location.href = 'groups.html';
+    localStorage.setItem('groupUserToken', token);
+    window.location.href = 'groups.html';
     clearErrors();
   } else {
     errorMsgEl.textContent = '';

@@ -1,5 +1,6 @@
 import { BASE_URL } from '../modules/moduleConfig.js';
 
+// eslint-disable-next-line import/prefer-default-export
 export async function fetch(endpoint, token) {
   try {
     const resp = await fetch(`${BASE_URL}/${endpoint}`, {
