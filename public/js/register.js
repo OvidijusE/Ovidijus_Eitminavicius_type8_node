@@ -76,9 +76,8 @@ async function registerFetch(full_name, email, password) {
   });
   const dataInJs = await resp.json();
   if (resp.status === 201) {
-    successMsg('User successfully created');
-    // handleError('User created');
-    // window.location.href = 'login.html';
+    successMsg('Success!');
+    window.location.href = 'login.html';
   } else {
     handleError(await resp.json());
   }

@@ -12,7 +12,25 @@ async function validateUser(req, res, next) {
     await schema.validateAsync(req.body, { abortEarly: false });
     next();
   } catch (error) {
-    console.log('error in validateAsync ===', error);
+    console.log('error in validateUserAsync ===', error);
+    const formatedError = error.details.map((eObj) => ({
+      message: eObj.message,
+      field: eObj.path[0],
+    }));
+    res.status(400).json(formatedError);
+  }
+}
+
+async function validateLogin(req, res, next) {
+  const schema = Joi.object({
+    email: Joi.string().trim().email().lowercase().required(),
+    password: Joi.string().trim().min(5).max(20).required(),
+  });
+  try {
+    await schema.validateAsync(req.body, { abortEarly: false });
+    next();
+  } catch (error) {
+    console.log('error in validateLoginAsync ===', error);
     const formatedError = error.details.map((eObj) => ({
       message: eObj.message,
       field: eObj.path[0],
@@ -47,4 +65,5 @@ async function validateToken(req, res, next) {
 module.exports = {
   validateUser,
   validateToken,
+  validateLogin,
 };

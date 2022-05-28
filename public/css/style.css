@@ -8,6 +8,7 @@ margin: 0 auto;
     flex-direction: row;
     justify-content: space-evenly;
     margin-bottom: 3rem;
+    margin-right: 1rem;
 }
 
 .nav-link {
@@ -26,7 +27,7 @@ margin: 0 auto;
     right: 0;
     bottom: 0;
     width: 0;
-    height: 0.09rem;
+    height: 0.1rem;
     background-image: linear-gradient(to right, red, blue, green, yellow);
     transition: all ease-in-out 0.25s;
     
@@ -67,6 +68,11 @@ border-radius: 4rem;
 padding: 0.1rem;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .form {
     display: flex;
@@ -78,7 +84,7 @@ padding: 0.1rem;
 .form input{
 padding-right: 10rem;
 margin-bottom: -1rem;
-padding: 0.1rem 10rem 0.3rem 0rem;
+padding: 0.1rem 8rem 0.3rem 0rem;
 border: 0.1rem solid lightgray;
 
 }
@@ -117,4 +123,8 @@ text-align: center;
 color: rgb(87, 187, 87);
 margin-top: -0.8rem;
 
+}
+
+.footer {
+margin-top:10rem;
 }
