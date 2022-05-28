@@ -17,9 +17,13 @@ function createCard(newCardObj) {
   makeEl('h3', `ID: ${newCardObj.id}`, articleEl);
   makeEl('p', `${newCardObj.name}`, articleEl);
 
+  //   articleEl.addEventListener('click', () => {
+  //     window.location.href = `bills.html?group_id=${obj.group_id}+${obj.name}`;
+  //     console.log('click');
+  //   });
+
   return articleEl;
 }
-
 function renderGroups(arr, dest) {
   dest.innerHTML = '';
   arr.forEach((cObj) => {
@@ -50,21 +54,3 @@ async function getGroups(token) {
   }
 }
 getGroups(token);
-
-// async function getGroups(token) {
-//   try {
-//     const groupsArr = await fetch('groups', token);
-//     console.log('groupsArr===', groupsArr);
-//     if (!Array.isArray(groupsArr)) {
-//       console.log('Your session has expired!');
-//       //   window.location.href = 'login.html';
-//     }
-//     renderGroups(groupsArr, cardContainerEl);
-//     createCard(groupsArr[0]);
-//   } catch (error) {
-//     console.warn('error ===', error);
-//     console.log('atvaizduojam klaida');
-//   }
-// }
-
-// getGroups();

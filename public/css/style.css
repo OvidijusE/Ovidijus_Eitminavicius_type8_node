@@ -95,9 +95,9 @@ padding: 0.1rem;
 }
 
 .form input{
-padding-right: 10rem;
 margin-bottom: -1rem;
-padding: 0.1rem 8rem 0.3rem 0rem;
+width: 120%;
+min-height: 1.3rem;
 border: 0.1rem solid lightgray;
 
 }
