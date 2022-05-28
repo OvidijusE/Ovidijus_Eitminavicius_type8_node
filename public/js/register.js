@@ -3,6 +3,7 @@ import { clearErrorsArr, checkInput, errorsArr } from './modules/validation.js';
 
 const formEl = document.querySelector('.register-form');
 const errorMsgEl = document.querySelectorAll('.error-msg');
+const successMsgEl = document.querySelector('.success-msg');
 
 formEl.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -32,7 +33,8 @@ formEl.addEventListener('submit', (e) => {
     handleError('Passwords does not match');
     return;
   }
-  registerFetch(formData.full_name, formData.email, formData.password, formData.repeat_password);
+
+  registerFetch(formData.full_name, formData.email, formData.password);
 });
 
 function handleError(msg) {
@@ -49,8 +51,22 @@ function handleError(msg) {
   }
 }
 
-async function registerFetch(full_name, email, password, repeat_password) {
-  const registerObj = { full_name, email, password, repeat_password };
+function successMsg(msg) {
+  successMsgEl.textContent = '';
+  if (typeof msg === 'string') {
+    successMsgEl.textContent = msg;
+  }
+  if (Array.isArray(msg)) {
+    msg.forEach((sObj) => {
+      const elWithSuccess = formEl.elements[sObj.field];
+      elWithSuccess.classList.add('success-msg');
+      elWithSuccess.nextElementSibling.textContent = sObj.message;
+    });
+  }
+}
+
+async function registerFetch(full_name, email, password) {
+  const registerObj = { full_name, email, password };
   const resp = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
     headers: {
@@ -58,8 +74,10 @@ async function registerFetch(full_name, email, password, repeat_password) {
     },
     body: JSON.stringify(registerObj),
   });
+  const dataInJs = await resp.json();
   if (resp.status === 201) {
-    handleError('User created');
+    successMsg('User successfully created');
+    // handleError('User created');
     // window.location.href = 'login.html';
   } else {
     handleError(await resp.json());

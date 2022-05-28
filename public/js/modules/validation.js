@@ -32,7 +32,7 @@ function checkRequired(value, field) {
 
 function checkMinLength(value, minLength, field) {
   if (value.length <= minLength) {
-    addError(`length must be greater than ${minLength}`, field);
+    addError(`Length must be greater than ${minLength}`, field);
   }
 }
 
