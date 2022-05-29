@@ -11,9 +11,8 @@ const billTitleEl = document.querySelector('.bills-title');
 const errorMsgEl = document.querySelectorAll('.error-msg');
 const successMsgEl = document.querySelector('.success-msg');
 
-const cardName = window.location.href.split('+')[1].split('%20').join(' ');
-billTitleEl.textContent = cardName;
-console.log('cardName', cardName);
+const dynamicTitle = window.location.href.split('+')[1].split('%20').join(' ');
+billTitleEl.textContent = dynamicTitle;
 
 function makeEl(tagName, text, elClass, dest) {
   const el = document.createElement(tagName);
