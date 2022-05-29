@@ -1,8 +1,13 @@
 import { getFetch } from './modules/fetch.js';
+import { checkInput, clearErrorsArr, errorsArr } from './modules/validation.js';
 
 const BASE_URL = 'http://localhost:3000/api';
 const token = localStorage.getItem('groupUserToken');
 const billsContainerEl = document.querySelector('.bills-table-body');
+const addBillForm = document.querySelector('.add-bill-form');
+
+const errorMsgEl = document.querySelectorAll('.error-msg');
+const successMsgEl = document.querySelector('.success-msg');
 
 function makeEl(tagName, text, elClass, dest) {
   const el = document.createElement(tagName);
@@ -18,57 +23,9 @@ function renderBill(arr, dest) {
     const trEl = makeEl('tr', '', '', dest);
     makeEl('td', `${tObj.group_id}`, '', trEl);
     makeEl('td', `${tObj.description}`, '', trEl);
-    makeEl('td', `${tObj.amount}`, '', trEl);
+    makeEl('td', `€ ${tObj.amount}`, '', trEl);
   });
 }
-
-// async function getBills(token) {
-//   try {
-//     const groupID = window.location.search.split('=');
-//     const resp = await fetch(`${BASE_URL}/bills/${groupID[1]}`, token {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     console.log('resp ===', resp);
-//     // if (!Array.isArray(resp)) {
-//     //   console.log('Your session has expired!');
-//     //   window.location.href = 'login.html';
-//     // }
-
-//     const dataInJs = await resp.json();
-//     console.log('dataInJs ===', dataInJs);
-//     renderBill(dataInJs, billsContainerEl);
-//     console.log('dataInJs  ===', resp);
-//   } catch (error) {
-//     console.log('error in get groups ===', error);
-//   }
-// }
-// getBills(token);
-
-// async function getAccounts(token) {
-//   try {
-//     const groupID = window.location.search.split('=');
-//     const resp = await fetch(`${BASE_URL}/bills/${groupID[1]}`, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     console.log('resp ===', resp);
-//     // if (!Array.isArray(resp)) {
-//     //   console.log('Your session has expired!');
-//     //   window.location.href = 'login.html';
-//     // }
-
-//     const dataInJs = await resp.json();
-//     console.log('dataInJs ===', dataInJs);
-//     renderBill(dataInJs, billsContainerEl);
-//     console.log('dataInJs  ===', resp);
-//   } catch (error) {
-//     console.log('error in get bills ===', error);
-//   }
-// }
-// getAccounts(token);
 
 async function getBills(userToken) {
   const groupID = window.location.search.split('=');
@@ -83,3 +40,88 @@ async function getBills(userToken) {
 }
 
 getBills(token);
+
+async function fetchBill(group_id, amount, description) {
+  const billObj = { group_id, amount, description };
+  //   console.log(billObj);
+  const resp = await fetch(`${BASE_URL}/bills?group_id=${group_id}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify(billObj),
+  });
+  const dataInJs = await resp.json();
+  console.log('dataInJs ===', dataInJs);
+  if (dataInJs === 'Bill successfully added') {
+    successMsg('Bill successfully added');
+    errorMsgEl.textContent = '';
+    addBillForm.elements.amount.value = '';
+    addBillForm.elements.description.value = '';
+    getBills(token);
+    handleError('Bill add', true);
+  } else if (dataInJs.error === 'invalid token') {
+    clearErrors();
+    handleError('Invalid token', false);
+    alert('Login timeout');
+    window.location.href = 'login.html';
+  } else {
+    clearErrors();
+    handleError('Bill not added', false);
+  }
+}
+
+addBillForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const groupID = window.location.search.split('=');
+  const billObj = {
+    amount: addBillForm.elements.amount.value.trim(),
+    description: addBillForm.elements.description.value.trim(),
+  };
+  console.log('billObj ===', billObj);
+
+  clearErrors();
+  checkInput(billObj.amount, 'amount', ['required', 'positive']);
+  checkInput(billObj.description, 'description', ['required', 'minLength-4', 'maxLength-30']);
+
+  if (errorsArr.length) {
+    handleError(errorsArr);
+    return;
+  }
+  fetchBill(groupID[1], billObj.amount, billObj.description);
+});
+
+function handleError(msg) {
+  errorMsgEl.textContent = '';
+  if (typeof msg === 'string') {
+    errorMsgEl.textContent = msg;
+  }
+  if (Array.isArray(msg)) {
+    msg.forEach((eObj) => {
+      const elWithError = addBillForm.elements[eObj.field];
+      elWithError.classList.add('invalid-input');
+      elWithError.nextElementSibling.textContent = eObj.message;
+    });
+  }
+}
+
+function successMsg(msg) {
+  successMsgEl.textContent = '';
+  if (typeof msg === 'string') {
+    successMsgEl.textContent = msg;
+  }
+  if (Array.isArray(msg)) {
+    msg.forEach((sObj) => {
+      const elWithSuccess = addBillForm.elements[sObj.field];
+      elWithSuccess.classList.add('success-msg');
+      elWithSuccess.nextElementSibling.textContent = sObj.message;
+    });
+  }
+}
+
+function clearErrors() {
+  clearErrorsArr();
+  errorMsgEl.forEach((htmlElement) => {
+    htmlElement.textContent = '';
+    htmlElement.previousElementSibling.classList.remove('invalid-input');
+  });
+}

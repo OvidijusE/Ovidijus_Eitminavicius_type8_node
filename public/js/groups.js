@@ -1,3 +1,5 @@
+import { getFetch } from './modules/fetch.js';
+
 const BASE_URL = 'http://localhost:3000/api';
 const token = localStorage.getItem('groupUserToken');
 const cardContainerEl = document.querySelector('.group-container');
@@ -22,25 +24,14 @@ function renderGroups(arr, dest) {
   });
 }
 
-async function getAccounts(token) {
-  try {
-    const resp = await fetch(`${BASE_URL}/accounts`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log('resp ===', resp);
-    // if (!Array.isArray(resp)) {
-    //   console.log('Your session has expired!');
-    //   window.location.href = 'login.html';
-    // }
-
-    const dataInJs = await resp.json();
-    console.log('dataInJs ===', dataInJs);
-    renderGroups(dataInJs, cardContainerEl);
-    console.log('dataInJs  ===', resp);
-  } catch (error) {
-    console.log('error in get groups ===', error);
+async function getAccounts(userToken) {
+  const resp = await getFetch('accounts', userToken);
+  if (!Array.isArray(resp)) {
+    alert('Your session has expired!');
+    window.location.href = 'login.html';
   }
+
+  renderGroups(resp, cardContainerEl);
 }
+
 getAccounts(token);

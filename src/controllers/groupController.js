@@ -1,6 +1,5 @@
 const { getGroups } = require('../model/groupModel');
 
-// ---------------------------------------
 async function getUserGroups(req, res) {
   try {
     const getAllGroups = await getGroups();
