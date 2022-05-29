@@ -1,4 +1,4 @@
-import { BASE_URL } from './modules/moduleConfig.js';
+import { BASE_URL, getFetch } from './modules/fetch.js';
 import { clearErrorsArr, checkInput, errorsArr } from './modules/validation.js';
 
 const formEl = document.querySelector('.login-form');

@@ -14,7 +14,7 @@ function renderGroups(arr, dest) {
   dest.innerHTML = '';
   arr.forEach((cObj) => {
     const groupArticleEl = makeEl('article', '', 'card-group', dest);
-    makeEl('h3', `ID: ${cObj.id}`, 'card-group-id', groupArticleEl);
+    makeEl('h3', `ID: ${cObj.group_id}`, 'card-id', groupArticleEl);
     makeEl('p', `${cObj.name}`, 'card-group-title', groupArticleEl);
     groupArticleEl.addEventListener('click', () => {
       window.location.href = `bills.html?group_id=${cObj.group_id} + ${cObj.name}`;
@@ -22,9 +22,9 @@ function renderGroups(arr, dest) {
   });
 }
 
-async function getBills(token) {
+async function getAccounts(token) {
   try {
-    const resp = await fetch(`${BASE_URL}/groups`, {
+    const resp = await fetch(`${BASE_URL}/accounts`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -43,4 +43,4 @@ async function getBills(token) {
     console.log('error in get groups ===', error);
   }
 }
-getBills(token);
+getAccounts(token);

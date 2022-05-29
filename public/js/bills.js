@@ -1,6 +1,8 @@
+import { getFetch } from './modules/fetch.js';
+
 const BASE_URL = 'http://localhost:3000/api';
 const token = localStorage.getItem('groupUserToken');
-const billsContainerEl = document.querySelector('.bills-table');
+const billsContainerEl = document.querySelector('.bills-table-body');
 
 function makeEl(tagName, text, elClass, dest) {
   const el = document.createElement(tagName);
@@ -14,31 +16,70 @@ function renderBill(arr, dest) {
   dest.innerHTML = '';
   arr.forEach((tObj) => {
     const trEl = makeEl('tr', '', '', dest);
-    makeEl('td', `${tObj.id}`, '', trEl);
+    makeEl('td', `${tObj.group_id}`, '', trEl);
     makeEl('td', `${tObj.description}`, '', trEl);
     makeEl('td', `${tObj.amount}`, '', trEl);
   });
 }
 
-async function getBills(token) {
-  try {
-    const resp = await fetch(`${BASE_URL}/bills/${groupID[1]}`, token{
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
-    });
-    console.log('resp ===', resp);
-    // if (!Array.isArray(resp)) {
-    //   console.log('Your session has expired!');
-    //   window.location.href = 'login.html';
-    // }
+// async function getBills(token) {
+//   try {
+//     const groupID = window.location.search.split('=');
+//     const resp = await fetch(`${BASE_URL}/bills/${groupID[1]}`, token {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     console.log('resp ===', resp);
+//     // if (!Array.isArray(resp)) {
+//     //   console.log('Your session has expired!');
+//     //   window.location.href = 'login.html';
+//     // }
 
-    const dataInJs = await resp.json();
-    console.log('dataInJs ===', dataInJs);
-    renderBill(dataInJs, billsContainerEl);
-    console.log('dataInJs  ===', resp);
-  } catch (error) {
-    console.log('error in get groups ===', error);
-  }
+//     const dataInJs = await resp.json();
+//     console.log('dataInJs ===', dataInJs);
+//     renderBill(dataInJs, billsContainerEl);
+//     console.log('dataInJs  ===', resp);
+//   } catch (error) {
+//     console.log('error in get groups ===', error);
+//   }
+// }
+// getBills(token);
+
+// async function getAccounts(token) {
+//   try {
+//     const groupID = window.location.search.split('=');
+//     const resp = await fetch(`${BASE_URL}/bills/${groupID[1]}`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     console.log('resp ===', resp);
+//     // if (!Array.isArray(resp)) {
+//     //   console.log('Your session has expired!');
+//     //   window.location.href = 'login.html';
+//     // }
+
+//     const dataInJs = await resp.json();
+//     console.log('dataInJs ===', dataInJs);
+//     renderBill(dataInJs, billsContainerEl);
+//     console.log('dataInJs  ===', resp);
+//   } catch (error) {
+//     console.log('error in get bills ===', error);
+//   }
+// }
+// getAccounts(token);
+
+async function getBills(userToken) {
+  const groupID = window.location.search.split('=');
+  const billsArr = await getFetch(`bills/${groupID[1]}`, userToken);
+  //   console.log('groupsArr ===', billsArr);
+  //   if (!Array.isArray(groupsArr)) {
+  //     alert('Jūs esate neprisijungęs arba baigesi Jūsų sesijos laikas. Prisijunkite iš naujo! ');
+  //     window.location.href = 'login.html';
+  //   }
+
+  renderBill(billsArr, billsContainerEl);
 }
+
 getBills(token);
