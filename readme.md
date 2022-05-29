@@ -1,6 +1,6 @@
 # Project Title 🚩
 
-Ovidijus Eitminavicius Type8 Node Egazminas
+Bills control application.
 
 ## Description 📃📃
 
@@ -13,7 +13,7 @@ to groups and share their bills.
 
 - To run this project first install npm.
 - After that check, the .env example, copy it and put your data.
-- Then start the server
+- Then start the server.
 
 ```
 npm install -y
@@ -31,8 +31,6 @@ Run help in the terminal for additional information.
 help
 ```
 
-## Authors 👨‍👩‍👧‍👦👨‍👩‍👧‍👦
-
-Contributors names and contact info
+## Authors 👨‍👩‍👧‍👦
 
 Ovidijus Eitminavicius

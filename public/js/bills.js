@@ -1,7 +1,6 @@
-import { getFetch } from './modules/fetch.js';
+import { getFetch, BASE_URL } from './modules/fetch.js';
 import { checkInput, clearErrorsArr, errorsArr } from './modules/validation.js';
 
-const BASE_URL = 'http://localhost:3000/api';
 const token = localStorage.getItem('groupUserToken');
 const billsContainerEl = document.querySelector('.bills-table-body');
 const addBillForm = document.querySelector('.add-bill-form');
@@ -35,12 +34,6 @@ function renderBill(arr, dest) {
 async function getBills(userToken) {
   const groupID = window.location.search.split('=');
   const billsArr = await getFetch(`bills/${groupID[1]}`, userToken);
-  //   console.log('groupsArr ===', billsArr);
-  //   if (!Array.isArray(groupsArr)) {
-  //     alert('Login timeout');
-  //     window.location.href = 'login.html';
-  //   }
-
   renderBill(billsArr, billsContainerEl);
 }
 
@@ -60,7 +53,7 @@ async function fetchBill(group_id, amount, description) {
     addBillForm.elements.amount.value = '';
     addBillForm.elements.description.value = '';
     getBills(token);
-    handleError('Bill not added', true);
+    handleError('Bill successfully added', true);
   } else if (dataInJs.error === 'invalid token') {
     clearErrors();
     handleError('Invalid token', false);

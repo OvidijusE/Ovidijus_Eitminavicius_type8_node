@@ -1,16 +1,6 @@
 // eslint-disable-next-line import/no-mutable-exports
 export let errorsArr = [];
 
-// export function clearErrors() {
-//   // errorsArr = [];
-//   clearErrorsArr();
-//   errorMsg.forEach((htmlElement) => {
-//     // eslint-disable-next-line no-param-reassign
-//     htmlElement.textContent = '';
-//     htmlElement.previousElementSibling.classList.remove('invalid-input');
-//   });
-// }
-
 export function clearErrorsArr() {
   errorsArr = [];
 }
@@ -45,12 +35,12 @@ export function checkInput(valueToCheck, field, rulesArr) {
       }
     }
     // // rule === positive
-    // if (rule === 'positive') {
-    //   if (valueToCheck < 0) {
-    //     addError('must be positive', field);
-    //     return;
-    //   }
-    // }
+    if (rule === 'positive') {
+      if (valueToCheck < 0) {
+        addError('must be positive', field);
+        return;
+      }
+    }
 
     // rule === minLength-X
     if (rule.split('-')[0] === 'minLength') {
@@ -66,6 +56,7 @@ export function checkInput(valueToCheck, field, rulesArr) {
       }
     }
 
+    // rule === includes "@"
     if (rule === 'email') {
       const etaFound = valueToCheck.split('@');
       if (etaFound.length !== 2) {

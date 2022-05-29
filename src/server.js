@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
+// Routes
 app.use('/api', userRoutes);
 app.use('/api', accountRoutes);
 app.use('/api', billRoutes);

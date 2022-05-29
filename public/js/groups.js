@@ -1,6 +1,5 @@
 import { getFetch } from './modules/fetch.js';
 
-const BASE_URL = 'http://localhost:3000/api';
 const token = localStorage.getItem('groupUserToken');
 const cardContainerEl = document.querySelector('.group-container');
 
