@@ -6,8 +6,14 @@ const token = localStorage.getItem('groupUserToken');
 const billsContainerEl = document.querySelector('.bills-table-body');
 const addBillForm = document.querySelector('.add-bill-form');
 
+const billTitleEl = document.querySelector('.bills-title');
+
 const errorMsgEl = document.querySelectorAll('.error-msg');
 const successMsgEl = document.querySelector('.success-msg');
+
+const cardName = window.location.href.split('+')[1].split('%20').join(' ');
+billTitleEl.textContent = cardName;
+console.log('cardName', cardName);
 
 function makeEl(tagName, text, elClass, dest) {
   const el = document.createElement(tagName);
@@ -32,7 +38,7 @@ async function getBills(userToken) {
   const billsArr = await getFetch(`bills/${groupID[1]}`, userToken);
   //   console.log('groupsArr ===', billsArr);
   //   if (!Array.isArray(groupsArr)) {
-  //     alert('Jūs esate neprisijungęs arba baigesi Jūsų sesijos laikas. Prisijunkite iš naujo! ');
+  //     alert('Login timeout');
   //     window.location.href = 'login.html';
   //   }
 
@@ -43,21 +49,19 @@ getBills(token);
 
 async function fetchBill(group_id, amount, description) {
   const billObj = { group_id, amount, description };
-  //   console.log(billObj);
   const resp = await fetch(`${BASE_URL}/bills?group_id=${group_id}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     body: JSON.stringify(billObj),
   });
   const dataInJs = await resp.json();
-  console.log('dataInJs ===', dataInJs);
   if (dataInJs === 'Bill successfully added') {
     successMsg('Bill successfully added');
     errorMsgEl.textContent = '';
     addBillForm.elements.amount.value = '';
     addBillForm.elements.description.value = '';
     getBills(token);
-    handleError('Bill add', true);
+    handleError('Bill not added', true);
   } else if (dataInJs.error === 'invalid token') {
     clearErrors();
     handleError('Invalid token', false);
@@ -77,11 +81,11 @@ addBillForm.addEventListener('submit', async (e) => {
     amount: addBillForm.elements.amount.value.trim(),
     description: addBillForm.elements.description.value.trim(),
   };
-  console.log('billObj ===', billObj);
 
   clearErrors();
   checkInput(billObj.amount, 'amount', ['required', 'positive']);
   checkInput(billObj.description, 'description', ['required', 'minLength-4', 'maxLength-30']);
+  successMsgEl.textContent = '';
 
   if (errorsArr.length) {
     handleError(errorsArr);
