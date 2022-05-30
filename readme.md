@@ -4,19 +4,18 @@ Bills control application.
 
 ## Description 📃📃
 
-This project is about a creating system which would let users to login
-to groups and share their bills.
+This project is about a creating application that lets users to log in to groups and share their bills.
 
 ## Getting Started
 
 ### Executing program 🚀🚀
 
-- To run this project first install npm.
-- After that check, the .env example, copy it and put your data.
+- To run this project first initialize npm.
+- After that, check the .env example, copy it and put your data.
 - Then start the server.
 
 ```
-npm install -y
+npm init -y
 ```
 
 ```
